@@ -1,0 +1,17 @@
+# Core ML/data dependencies
+numpy==2.4.3
+pandas==2.2.3
+scikit-learn==1.8.0
+lightgbm==4.6.0
+
+# API dependencies
+fastapi==0.135.1
+pydantic==2.12.5
+uvicorn==0.42.0
+
+# Test dependencies
+pytest==9.0.2
+httpx==0.28.1
+
+streamlit==1.52.1
+requests==2.32.5

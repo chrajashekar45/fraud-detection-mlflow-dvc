@@ -1,0 +1,7 @@
+dataa/
+venv/
+__pycache__/
+*.pyc
+.git/
+*.csv
+*.pkl

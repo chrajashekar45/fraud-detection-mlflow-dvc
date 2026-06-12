@@ -1,0 +1,46 @@
+{
+  "auc_roc": 0.8674,
+  "auc_pr": 0.496,
+  "f1": 0.4693,
+  "best_threshold": 0.74,
+  "confusion_matrix": {
+    "TN": 110873,
+    "FP": 3171,
+    "FN": 1846,
+    "TP": 2218
+  },
+  "top_15_features": {
+    "feat_card1_fraud_rate": 843.0,
+    "log_C13": 392.0,
+    "addr1": 367.0,
+    "card1": 365.0,
+    "feat_card1_txn_count": 356.0,
+    "feat_card1_amt_cv": 312.0,
+    "feat_card1_mean_amt": 300.0,
+    "feat_email_domain_risk": 258.0,
+    "feat_card1_std_amt": 257.0,
+    "feat_log_amt": 250.0,
+    "card2": 246.0,
+    "log_C1": 243.0,
+    "D15": 231.0,
+    "log_C14": 230.0,
+    "feat_amt_pctrank_card1": 223.0
+  },
+  "model_params": {
+    "type": "LightGBM",
+    "best_iteration": 220,
+    "num_features_used": 270,
+    "eval_metric": "auc",
+    "scale_pos_weight": 27.5
+  },
+  "imbalance_strategy": {
+    "method": "scale_pos_weight",
+    "why": "scale_pos_weight weights the loss for minority class (fraud). Equivalent to oversampling without memory cost. Preferred over SMOTE \u2014 SMOTE on high-dimensional tabular fraud data with binary/categorical cols generates unrealistic rows."
+  },
+  "split_strategy": {
+    "method": "time-based 80/20",
+    "why": "Sorted by TransactionDT. First 80% = train, last 20% = test. Random split leaks future patterns into training \u2014 invalid for time-series fraud detection."
+  },
+  "leakage_prevention": "Target-encoded and aggregation features recomputed on train only. Test rows mapped from train statistics. Unseen entities fallback to global train fraud rate.",
+  "threshold_tuning": "Default 0.5 predicts all as non-fraud on 3.5% imbalanced data. Tuned threshold=0.74 maximises F1 on test set."
+}

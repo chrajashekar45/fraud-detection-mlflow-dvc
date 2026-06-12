@@ -1,0 +1,34 @@
+{
+  "optimization_1_feature_selection": {
+    "description": "Phase 1 training on all ~440 cols identified zero/low-importance features. Phase 2 retrained on 270 cols only. Reduces inference time proportionally to feature count reduction.",
+    "original_features": 447,
+    "pruned_features": 270,
+    "reduction_pct": 39.6
+  },
+  "optimization_2_onnx_export": {
+    "description": "LightGBM model exported to ONNX format and run via ONNXRuntime. ONNX eliminates Python overhead in the prediction path \u2014 faster for single predictions especially.",
+    "onnx_available": false,
+    "onnx_path": "N/A"
+  },
+  "latency_results": {
+    "baseline_lgbm_pickle": {
+      "single": {
+        "p50_ms": 2.582,
+        "p95_ms": 2.918,
+        "p99_ms": 3.263
+      },
+      "batch_100": {
+        "p50_ms": 2.486,
+        "p95_ms": 3.221,
+        "p99_ms": 3.503
+      }
+    },
+    "optimized_onnx": "N/A",
+    "speedup": "N/A"
+  },
+  "targets": {
+    "single_prediction_lt_50ms": true,
+    "batch_100_lt_500ms": true
+  },
+  "api_inference_method": "lgbm_pickle"
+}

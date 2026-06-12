@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environment
+.venv/
+venv/
+
+# Environment files
+.env
+
+# Data artifacts
+data/raw/*.csv
+data/clean/*.csv
+data/features/*.csv
+
+# Model artifacts
+models/*.pkl
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS/editor
+.vscode/
+.DS_Store
+Thumbs.db
