@@ -1,0 +1,102 @@
+schema: '2.0'
+stages:
+  clean:
+    cmd: python cleaning/clean.py
+    deps:
+    - path: cleaning/clean.py
+      hash: md5
+      md5: 0d3b9c8acc6220fea57695f6bc5c0e08
+      size: 22035
+    - path: data/raw/train_identity.csv
+      hash: md5
+      md5: 8487db5001c8bad139f3318d5d3db416
+      size: 26529680
+    - path: data/raw/train_transaction.csv
+      hash: md5
+      md5: 58b4038d8715f5e11007b826bef00ce7
+      size: 683351067
+    outs:
+    - path: data/clean/clean_data.csv
+      hash: md5
+      md5: 3ca4b70ebb75e1a984dd90ab8c066ce7
+      size: 1029468008
+    - path: data/clean/cleaning_report.json
+      hash: md5
+      md5: fb016a51e6d4ef03d31992ca1dce33f6
+      size: 20294
+  features:
+    cmd: python features/Engineer.py
+    deps:
+    - path: data/clean/clean_data.csv
+      hash: md5
+      md5: 3ca4b70ebb75e1a984dd90ab8c066ce7
+      size: 1029468008
+    - path: features/Engineer.py
+      hash: md5
+      md5: d027092fc3b7fb946d77016b363ae7ef
+      size: 19491
+    outs:
+    - path: data/features/feature_report.json
+      hash: md5
+      md5: 4b06dba3d92cdaf3fb71b48f223f12b3
+      size: 6709
+    - path: data/features/featured_data.csv
+      hash: md5
+      md5: fa8a0e419d53ac1f5ad15883ddb85ec0
+      size: 1121247406
+    - path: data/features/model_feature_cols.json
+      hash: md5
+      md5: 5f50a02dc7a4432715a9a3f74753e2de
+      size: 5255
+  train:
+    cmd: python models/train.py
+    deps:
+    - path: data/features/featured_data.csv
+      hash: md5
+      md5: fa8a0e419d53ac1f5ad15883ddb85ec0
+      size: 1121247406
+    - path: data/features/model_feature_cols.json
+      hash: md5
+      md5: 5f50a02dc7a4432715a9a3f74753e2de
+      size: 5255
+    - path: models/train.py
+      hash: md5
+      md5: a14f627bf227ca98cd9079e612fa9f09
+      size: 15178
+    outs:
+    - path: models/eval_report.json
+      hash: md5
+      md5: a13d7025ecad25e5a5208f5e6e14c7b2
+      size: 1696
+    - path: models/model.pkl
+      hash: md5
+      md5: f4b190dae95cbdf4ab23f6d727e5d826
+      size: 1559647
+    - path: models/pruned_feature_cols.json
+      hash: md5
+      md5: be639041a0dcb4994a5c894252db394e
+      size: 3302
+  optimize:
+    cmd: python models/optimize.py
+    deps:
+    - path: models/eval_report.json
+      hash: md5
+      md5: a13d7025ecad25e5a5208f5e6e14c7b2
+      size: 1696
+    - path: models/model.pkl
+      hash: md5
+      md5: f4b190dae95cbdf4ab23f6d727e5d826
+      size: 1559647
+    - path: models/optimize.py
+      hash: md5
+      md5: 99f3f1df91e2e44643824ec6cc0e7daa
+      size: 10564
+    - path: models/pruned_feature_cols.json
+      hash: md5
+      md5: be639041a0dcb4994a5c894252db394e
+      size: 3302
+    outs:
+    - path: models/latency_report.json
+      hash: md5
+      md5: d1fce79f790c29675171eca0864d220e
+      size: 1094

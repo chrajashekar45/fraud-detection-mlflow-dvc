@@ -13,14 +13,14 @@
   "latency_results": {
     "baseline_lgbm_pickle": {
       "single": {
-        "p50_ms": 2.582,
-        "p95_ms": 2.918,
-        "p99_ms": 3.263
+        "p50_ms": 1.784,
+        "p95_ms": 2.019,
+        "p99_ms": 2.097
       },
       "batch_100": {
-        "p50_ms": 2.486,
-        "p95_ms": 3.221,
-        "p99_ms": 3.503
+        "p50_ms": 2.658,
+        "p95_ms": 3.015,
+        "p99_ms": 3.083
       }
     },
     "optimized_onnx": "N/A",

@@ -1,0 +1,51 @@
+stages:
+  clean:
+    cmd: python cleaning/clean.py
+    deps:
+      - cleaning/clean.py
+      - data/raw/train_transaction.csv
+      - data/raw/train_identity.csv
+    outs:
+      - data/clean/clean_data.csv
+    metrics:
+      - data/clean/cleaning_report.json:
+          cache: false
+
+  features:
+    cmd: python features/Engineer.py
+    deps:
+      - features/Engineer.py
+      - data/clean/clean_data.csv
+    outs:
+      - data/features/featured_data.csv
+    metrics:
+      - data/features/feature_report.json:
+          cache: false
+      - data/features/model_feature_cols.json:
+          cache: false
+  train:
+    cmd: python models/train.py
+    deps:
+      - models/train.py
+      - data/features/featured_data.csv
+      - data/features/model_feature_cols.json
+    outs:
+      - models/model.pkl
+      - models/pruned_feature_cols.json
+    metrics:
+      - models/eval_report.json:
+          cache: false
+
+  optimize:
+    cmd: python models/optimize.py
+    deps:
+      - models/optimize.py
+      - models/model.pkl
+      - models/pruned_feature_cols.json
+      - models/eval_report.json
+    metrics:
+      - models/latency_report.json:
+          cache: false
+
+#cache: false:
+#Keeps reports readable and committed in Git instead of hiding them in DVC cache.

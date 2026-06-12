@@ -17,6 +17,7 @@ data/features/*.csv
 
 # Model artifacts
 models/*.pkl
+/model_feature_cols.json
 
 # Streamlit
 .streamlit/secrets.toml

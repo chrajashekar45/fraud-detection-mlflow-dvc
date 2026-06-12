@@ -1,0 +1,103 @@
+{
+  "total_feat_columns": 24,
+  "total_model_columns": 447,
+  "feat_columns": [
+    "feat_log_amt",
+    "feat_amt_zscore",
+    "feat_amt_pctrank_card1",
+    "feat_card1_mean_amt",
+    "feat_amt_to_card1_mean",
+    "feat_is_round_amt",
+    "feat_high_amt_flag",
+    "feat_hour",
+    "feat_dow",
+    "feat_is_weekend",
+    "feat_is_night",
+    "feat_time_since_last_card1",
+    "feat_card1_txn_count",
+    "feat_card1_std_amt",
+    "feat_card1_amt_cv",
+    "feat_card1_fraud_rate",
+    "feat_email_domain_risk",
+    "feat_email_domain_mismatch",
+    "feat_card_combo_freq",
+    "feat_productcd_fraud_rate",
+    "feat_m_match_count",
+    "feat_m_mismatch_count",
+    "feat_d1_to_d10_ratio",
+    "feat_has_identity"
+  ],
+  "feature_rationale": {
+    "feat_log_amt": "Log of TransactionAmt. Compresses heavy right skew. Fraudsters often use very specific amounts \u2014 log scale makes these patterns easier for the model to find.",
+    "feat_amt_zscore": "Z-score of TransactionAmt globally. Flags transactions that are statistically unusual vs the whole population. A score of 3+ means amount is 3 std deviations above mean.",
+    "feat_amt_pctrank_card1": "Percentile rank of this transaction amount among all transactions by the same card1. A rank of 0.99 means this is the largest amount this card has ever transacted \u2014 strong fraud signal.",
+    "feat_amt_to_card1_mean": "Ratio of this transaction amount to the card's historical mean amount. Value of 5.0 means this txn is 5x larger than normal for this card \u2014 anomaly signal.",
+    "feat_is_round_amt": "Binary: 1 if TransactionAmt is a round number (no cents). Fraudsters often use round amounts like 100.00, 500.00 when testing stolen cards.",
+    "feat_high_amt_flag": "Binary: 1 if TransactionAmt is above the 95th percentile. High-value transactions have disproportionately higher fraud rates.",
+    "feat_hour": "Hour of day (0\u201323) extracted from TransactionDT. Fraud peaks in early morning hours (1\u20135am) when cardholders are asleep and less likely to notice.",
+    "feat_dow": "Day of week (0=Mon, 6=Sun) from TransactionDT. Fraud patterns differ on weekends vs weekdays \u2014 weekends have lower legitimate transaction volumes making fraud easier to hide.",
+    "feat_is_weekend": "Binary: 1 if transaction falls on Saturday or Sunday. Derived from feat_dow. Fraud-to-legitimate ratio is higher on weekends.",
+    "feat_is_night": "Binary: 1 if transaction is between 11pm and 5am. Night transactions have significantly higher fraud rates across all card types.",
+    "feat_time_since_last_card1": "Seconds since the last transaction by the same card1. Very small values (seconds apart) indicate rapid-fire transactions \u2014 a classic card testing pattern where fraudsters make many small purchases quickly.",
+    "feat_card1_txn_count": "Total number of transactions by this card1 in the dataset. Cards with very high counts may be used for testing. Cards with count=1 are first-time cards \u2014 higher risk.",
+    "feat_card1_mean_amt": "Mean transaction amount for this card1 historically. Used as denominator for feat_amt_to_card1_mean. Also directly useful \u2014 cards with very low mean amounts that suddenly transact large amounts are suspicious.",
+    "feat_card1_std_amt": "Standard deviation of transaction amounts for this card1. Low std = very consistent spending pattern. A sudden deviation from that pattern = fraud signal.",
+    "feat_card1_amt_cv": "Coefficient of Variation = std/mean for card1 amounts. Normalises std by mean so cards with different spending levels are comparable. High CV = erratic spending.",
+    "feat_card1_fraud_rate": "Historical fraud rate for this card1 (computed on training data only to avoid leakage). Cards that have had previous fraud are at higher risk of future fraud.",
+    "feat_email_domain_risk": "Fraud rate per P_emaildomain (purchaser email domain). Some domains (e.g. anonymous/disposable email providers) have significantly higher fraud rates. Unknown/missing domains get mean fraud rate.",
+    "feat_email_domain_mismatch": "Binary: 1 if P_emaildomain != R_emaildomain (recipient). A mismatch between purchaser and recipient email domains is a common signal in account takeover fraud.",
+    "feat_card_combo_freq": "Frequency encoding of card1+card4 combination. Rare card combinations (low frequency) are more likely to be fraudulent \u2014 common legitimate card+network combinations are well-established.",
+    "feat_productcd_fraud_rate": "Fraud rate per ProductCD category. Some product types (e.g. digital goods, gift cards) have much higher fraud rates than physical goods.",
+    "feat_m_match_count": "Count of M columns equal to 1 (T=matched). M1\u2013M9 are identity/address match flags. Legitimate transactions tend to have more matches. Low match count = mismatched identity details = fraud signal.",
+    "feat_m_mismatch_count": "Count of M columns equal to 0 (F=mismatch). Direct count of confirmed mismatches across all M flags. High mismatch count is a strong fraud indicator.",
+    "feat_d1_to_d10_ratio": "Ratio of D1 (days since last transaction) to D10 (another time delta). Captures relative timing patterns. Unusual ratios indicate atypical transaction timing.",
+    "feat_has_identity": "Binary: 1 if this transaction has identity data (from train_identity.csv join). Transactions without identity data are more anonymous and statistically riskier."
+  },
+  "categories": {
+    "1_transaction_amount": [
+      "feat_log_amt",
+      "feat_amt_zscore",
+      "feat_amt_pctrank_card1",
+      "feat_amt_to_card1_mean",
+      "feat_is_round_amt",
+      "feat_high_amt_flag",
+      "feat_card1_mean_amt",
+      "feat_card1_std_amt",
+      "feat_card1_amt_cv"
+    ],
+    "2_temporal": [
+      "feat_hour",
+      "feat_dow",
+      "feat_is_weekend",
+      "feat_is_night",
+      "feat_time_since_last_card1"
+    ],
+    "3_aggregation": [
+      "feat_amt_pctrank_card1",
+      "feat_amt_to_card1_mean",
+      "feat_time_since_last_card1",
+      "feat_card1_txn_count",
+      "feat_card1_mean_amt",
+      "feat_card1_std_amt",
+      "feat_card1_amt_cv",
+      "feat_card1_fraud_rate"
+    ],
+    "4_categorical": [
+      "feat_email_domain_risk",
+      "feat_email_domain_mismatch",
+      "feat_card_combo_freq",
+      "feat_productcd_fraud_rate"
+    ],
+    "5_behavioural": [
+      "feat_amt_to_card1_mean",
+      "feat_card1_txn_count",
+      "feat_card1_mean_amt",
+      "feat_card1_std_amt",
+      "feat_card1_amt_cv",
+      "feat_card1_fraud_rate",
+      "feat_m_match_count",
+      "feat_d1_to_d10_ratio",
+      "feat_has_identity"
+    ]
+  }
+}

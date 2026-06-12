@@ -1,0 +1,952 @@
+{
+  "original_shape": [
+    590540,
+    434
+  ],
+  "transactions_with_id": 144233,
+  "transactions_without_id": 449730,
+  "C_columns": {
+    "count": 14,
+    "strategy": "fill 0 \u2192 log1p \u2192 drop raw (log versions kept)",
+    "raw_cols_dropped": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14"
+    ],
+    "details": {
+      "C1": {
+        "missing_filled_zero": 0,
+        "raw_max": 4685.0,
+        "raw_p99": 164.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C1"
+      },
+      "C2": {
+        "missing_filled_zero": 0,
+        "raw_max": 5691.0,
+        "raw_p99": 154.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C2"
+      },
+      "C3": {
+        "missing_filled_zero": 0,
+        "raw_max": 26.0,
+        "raw_p99": 0.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C3"
+      },
+      "C4": {
+        "missing_filled_zero": 0,
+        "raw_max": 2253.0,
+        "raw_p99": 6.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C4"
+      },
+      "C5": {
+        "missing_filled_zero": 0,
+        "raw_max": 349.0,
+        "raw_p99": 149.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C5"
+      },
+      "C6": {
+        "missing_filled_zero": 0,
+        "raw_max": 2253.0,
+        "raw_p99": 118.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C6"
+      },
+      "C7": {
+        "missing_filled_zero": 0,
+        "raw_max": 2255.0,
+        "raw_p99": 4.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C7"
+      },
+      "C8": {
+        "missing_filled_zero": 0,
+        "raw_max": 3331.0,
+        "raw_p99": 11.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C8"
+      },
+      "C9": {
+        "missing_filled_zero": 0,
+        "raw_max": 210.0,
+        "raw_p99": 95.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C9"
+      },
+      "C10": {
+        "missing_filled_zero": 0,
+        "raw_max": 3257.0,
+        "raw_p99": 15.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C10"
+      },
+      "C11": {
+        "missing_filled_zero": 0,
+        "raw_max": 3188.0,
+        "raw_p99": 122.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C11"
+      },
+      "C12": {
+        "missing_filled_zero": 0,
+        "raw_max": 3188.0,
+        "raw_p99": 5.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C12"
+      },
+      "C13": {
+        "missing_filled_zero": 0,
+        "raw_max": 2918.0,
+        "raw_p99": 578.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C13"
+      },
+      "C14": {
+        "missing_filled_zero": 0,
+        "raw_max": 1429.0,
+        "raw_p99": 128.0,
+        "outlier_strategy": "log1p \u2014 preserves fraud signal in high counts",
+        "log_col_created": "log_C14"
+      }
+    }
+  },
+  "D_columns": {
+    "count": 15,
+    "strategy": "median if <50% missing; -1 sentinel if >50% missing",
+    "details": {
+      "D1": {
+        "missing": 1269,
+        "pct_missing": 0.2,
+        "strategy": "fill median = 3.0"
+      },
+      "D2": {
+        "missing": 280797,
+        "pct_missing": 47.5,
+        "strategy": "fill median = 97.0"
+      },
+      "D3": {
+        "missing": 262878,
+        "pct_missing": 44.5,
+        "strategy": "fill median = 8.0"
+      },
+      "D4": {
+        "missing": 168922,
+        "pct_missing": 28.6,
+        "strategy": "fill median = 26.0"
+      },
+      "D5": {
+        "missing": 309841,
+        "pct_missing": 52.5,
+        "strategy": "fill -1 sentinel (52.5% missing \u2014 new entity signal)"
+      },
+      "D6": {
+        "missing": 517353,
+        "pct_missing": 87.6,
+        "strategy": "fill -1 sentinel (87.6% missing \u2014 new entity signal)"
+      },
+      "D7": {
+        "missing": 551623,
+        "pct_missing": 93.4,
+        "strategy": "fill -1 sentinel (93.4% missing \u2014 new entity signal)"
+      },
+      "D8": {
+        "missing": 515614,
+        "pct_missing": 87.3,
+        "strategy": "fill -1 sentinel (87.3% missing \u2014 new entity signal)"
+      },
+      "D9": {
+        "missing": 515614,
+        "pct_missing": 87.3,
+        "strategy": "fill -1 sentinel (87.3% missing \u2014 new entity signal)"
+      },
+      "D10": {
+        "missing": 76022,
+        "pct_missing": 12.9,
+        "strategy": "fill median = 15.0"
+      },
+      "D11": {
+        "missing": 279287,
+        "pct_missing": 47.3,
+        "strategy": "fill median = 43.0"
+      },
+      "D12": {
+        "missing": 525823,
+        "pct_missing": 89.0,
+        "strategy": "fill -1 sentinel (89.0% missing \u2014 new entity signal)"
+      },
+      "D13": {
+        "missing": 528588,
+        "pct_missing": 89.5,
+        "strategy": "fill -1 sentinel (89.5% missing \u2014 new entity signal)"
+      },
+      "D14": {
+        "missing": 528353,
+        "pct_missing": 89.5,
+        "strategy": "fill -1 sentinel (89.5% missing \u2014 new entity signal)"
+      },
+      "D15": {
+        "missing": 89113,
+        "pct_missing": 15.1,
+        "strategy": "fill median = 52.0"
+      }
+    }
+  },
+  "dist_columns": {
+    "note": "dist1 and dist2 are from train_transaction.csv, not identity",
+    "details": {
+      "dist1": {
+        "pct_missing": 59.7,
+        "strategy": "fill median=8.0 \u2192 log1p \u2192 drop raw",
+        "log_col_created": "log_dist1"
+      },
+      "dist2": {
+        "pct_missing": 93.6,
+        "strategy": "DROPPED raw \u2014 93% missing too sparse to impute",
+        "replacement": "has_dist2 binary flag (1=had value, 0=missing)",
+        "why_flag_works": "linked identity record = fraud signal"
+      }
+    }
+  },
+  "M_columns": {
+    "count": 9,
+    "strategy": "T=1  F=0  NaN=-1(signal preserved)  other=2",
+    "details": {
+      "M1": {
+        "missing": 271100,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M2": {
+        "missing": 271100,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M3": {
+        "missing": 271100,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M4": {
+        "missing": 281444,
+        "unexpected": 309096,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M5": {
+        "missing": 350482,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M6": {
+        "missing": 169360,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M7": {
+        "missing": 346265,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M8": {
+        "missing": 346252,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      },
+      "M9": {
+        "missing": 346252,
+        "unexpected": 0,
+        "strategy": "T=1, F=0, NaN=-1, other=2"
+      }
+    }
+  },
+  "V_columns": {
+    "original_count": 339,
+    "dropped_gt90pct_missing": 0,
+    "imputed_with_median": 339,
+    "strategy": "drop if >90% missing; fill median otherwise"
+  },
+  "V_outlier_treatment": {
+    "log1p_applied_and_raw_dropped": 1,
+    "skipped_binary_or_low_range": 338,
+    "strategy": "log1p + drop raw only where max>100 AND p99/median>5",
+    "logged_cols": [
+      "V150"
+    ]
+  },
+  "categorical_columns": {
+    "ProductCD": {
+      "missing": 0,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "card4": {
+      "missing": 1577,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "card6": {
+      "missing": 1571,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "P_emaildomain": {
+      "missing": 94456,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "R_emaildomain": {
+      "missing": 453249,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "addr1": {
+      "missing": 65706,
+      "strategy": "fill median=299.0"
+    },
+    "addr2": {
+      "missing": 65706,
+      "strategy": "fill median=87.0"
+    },
+    "card1": {
+      "missing": 0,
+      "strategy": "fill median=9678.0"
+    },
+    "card2": {
+      "missing": 8933,
+      "strategy": "fill median=361.0"
+    },
+    "card3": {
+      "missing": 1565,
+      "strategy": "fill median=150.0"
+    },
+    "card5": {
+      "missing": 4259,
+      "strategy": "fill median=226.0"
+    },
+    "DeviceType": {
+      "missing": 449730,
+      "strategy": "mobile=0, desktop=1, unknown/NaN=2"
+    },
+    "DeviceInfo": {
+      "missing": 471874,
+      "strategy": "extract OS family \u2192 label encode"
+    },
+    "id_12": {
+      "missing": 446307,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_13": {
+      "missing": 463220,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_14": {
+      "missing": 510496,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_15": {
+      "missing": 449555,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_16": {
+      "missing": 461200,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_17": {
+      "missing": 451171,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_18": {
+      "missing": 545427,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_19": {
+      "missing": 451222,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_20": {
+      "missing": 451279,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_21": {
+      "missing": 585381,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_22": {
+      "missing": 585371,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_23": {
+      "missing": 585371,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_24": {
+      "missing": 585793,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_25": {
+      "missing": 585408,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_26": {
+      "missing": 585377,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_27": {
+      "missing": 585371,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_28": {
+      "missing": 449562,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_29": {
+      "missing": 449562,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_30": {
+      "missing": 512975,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_31": {
+      "missing": 450258,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_32": {
+      "missing": 512954,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_33": {
+      "missing": 517251,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_34": {
+      "missing": 512735,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_35": {
+      "missing": 449555,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_36": {
+      "missing": 449555,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_37": {
+      "missing": 449555,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_38": {
+      "missing": 449555,
+      "strategy": "fill unknown \u2192 label encode"
+    },
+    "id_01": {
+      "missing": 446307,
+      "strategy": "fill median=-5.0"
+    },
+    "id_02": {
+      "missing": 449668,
+      "strategy": "fill median=125800.5"
+    },
+    "id_03": {
+      "missing": 524216,
+      "strategy": "fill median=0.0"
+    },
+    "id_04": {
+      "missing": 524216,
+      "strategy": "fill median=0.0"
+    },
+    "id_05": {
+      "missing": 453675,
+      "strategy": "fill median=0.0"
+    },
+    "id_06": {
+      "missing": 453675,
+      "strategy": "fill median=0.0"
+    },
+    "id_07": {
+      "missing": 585385,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_08": {
+      "missing": 585385,
+      "strategy": "DROPPED >90% missing"
+    },
+    "id_09": {
+      "missing": 515614,
+      "strategy": "fill median=0.0"
+    },
+    "id_10": {
+      "missing": 515614,
+      "strategy": "fill median=0.0"
+    },
+    "id_11": {
+      "missing": 449562,
+      "strategy": "fill median=100.0"
+    }
+  },
+  "outliers": {
+    "TransactionAmt": {
+      "strategy": "clip at 99.9th percentile",
+      "cap_value": 2769.81,
+      "rows_capped": 591
+    },
+    "C_columns_note": "C cols NOT clipped \u2014 log1p used + raw dropped"
+  },
+  "final_shape": [
+    590540,
+    424
+  ],
+  "null_remaining": 0,
+  "final_columns_by_type": {
+    "log_C_cols": [
+      "log_C1",
+      "log_C2",
+      "log_C3",
+      "log_C4",
+      "log_C5",
+      "log_C6",
+      "log_C7",
+      "log_C8",
+      "log_C9",
+      "log_C10",
+      "log_C11",
+      "log_C12",
+      "log_C13",
+      "log_C14"
+    ],
+    "D_cols": [
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "DeviceType",
+      "DeviceInfo"
+    ],
+    "M_cols": [
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8",
+      "M9"
+    ],
+    "V_cols_raw": [
+      "V1",
+      "V2",
+      "V3",
+      "V4",
+      "V5",
+      "V6",
+      "V7",
+      "V8",
+      "V9",
+      "V10",
+      "V11",
+      "V12",
+      "V13",
+      "V14",
+      "V15",
+      "V16",
+      "V17",
+      "V18",
+      "V19",
+      "V20",
+      "V21",
+      "V22",
+      "V23",
+      "V24",
+      "V25",
+      "V26",
+      "V27",
+      "V28",
+      "V29",
+      "V30",
+      "V31",
+      "V32",
+      "V33",
+      "V34",
+      "V35",
+      "V36",
+      "V37",
+      "V38",
+      "V39",
+      "V40",
+      "V41",
+      "V42",
+      "V43",
+      "V44",
+      "V45",
+      "V46",
+      "V47",
+      "V48",
+      "V49",
+      "V50",
+      "V51",
+      "V52",
+      "V53",
+      "V54",
+      "V55",
+      "V56",
+      "V57",
+      "V58",
+      "V59",
+      "V60",
+      "V61",
+      "V62",
+      "V63",
+      "V64",
+      "V65",
+      "V66",
+      "V67",
+      "V68",
+      "V69",
+      "V70",
+      "V71",
+      "V72",
+      "V73",
+      "V74",
+      "V75",
+      "V76",
+      "V77",
+      "V78",
+      "V79",
+      "V80",
+      "V81",
+      "V82",
+      "V83",
+      "V84",
+      "V85",
+      "V86",
+      "V87",
+      "V88",
+      "V89",
+      "V90",
+      "V91",
+      "V92",
+      "V93",
+      "V94",
+      "V95",
+      "V96",
+      "V97",
+      "V98",
+      "V99",
+      "V100",
+      "V101",
+      "V102",
+      "V103",
+      "V104",
+      "V105",
+      "V106",
+      "V107",
+      "V108",
+      "V109",
+      "V110",
+      "V111",
+      "V112",
+      "V113",
+      "V114",
+      "V115",
+      "V116",
+      "V117",
+      "V118",
+      "V119",
+      "V120",
+      "V121",
+      "V122",
+      "V123",
+      "V124",
+      "V125",
+      "V126",
+      "V127",
+      "V128",
+      "V129",
+      "V130",
+      "V131",
+      "V132",
+      "V133",
+      "V134",
+      "V135",
+      "V136",
+      "V137",
+      "V138",
+      "V139",
+      "V140",
+      "V141",
+      "V142",
+      "V143",
+      "V144",
+      "V145",
+      "V146",
+      "V147",
+      "V148",
+      "V149",
+      "V151",
+      "V152",
+      "V153",
+      "V154",
+      "V155",
+      "V156",
+      "V157",
+      "V158",
+      "V159",
+      "V160",
+      "V161",
+      "V162",
+      "V163",
+      "V164",
+      "V165",
+      "V166",
+      "V167",
+      "V168",
+      "V169",
+      "V170",
+      "V171",
+      "V172",
+      "V173",
+      "V174",
+      "V175",
+      "V176",
+      "V177",
+      "V178",
+      "V179",
+      "V180",
+      "V181",
+      "V182",
+      "V183",
+      "V184",
+      "V185",
+      "V186",
+      "V187",
+      "V188",
+      "V189",
+      "V190",
+      "V191",
+      "V192",
+      "V193",
+      "V194",
+      "V195",
+      "V196",
+      "V197",
+      "V198",
+      "V199",
+      "V200",
+      "V201",
+      "V202",
+      "V203",
+      "V204",
+      "V205",
+      "V206",
+      "V207",
+      "V208",
+      "V209",
+      "V210",
+      "V211",
+      "V212",
+      "V213",
+      "V214",
+      "V215",
+      "V216",
+      "V217",
+      "V218",
+      "V219",
+      "V220",
+      "V221",
+      "V222",
+      "V223",
+      "V224",
+      "V225",
+      "V226",
+      "V227",
+      "V228",
+      "V229",
+      "V230",
+      "V231",
+      "V232",
+      "V233",
+      "V234",
+      "V235",
+      "V236",
+      "V237",
+      "V238",
+      "V239",
+      "V240",
+      "V241",
+      "V242",
+      "V243",
+      "V244",
+      "V245",
+      "V246",
+      "V247",
+      "V248",
+      "V249",
+      "V250",
+      "V251",
+      "V252",
+      "V253",
+      "V254",
+      "V255",
+      "V256",
+      "V257",
+      "V258",
+      "V259",
+      "V260",
+      "V261",
+      "V262",
+      "V263",
+      "V264",
+      "V265",
+      "V266",
+      "V267",
+      "V268",
+      "V269",
+      "V270",
+      "V271",
+      "V272",
+      "V273",
+      "V274",
+      "V275",
+      "V276",
+      "V277",
+      "V278",
+      "V279",
+      "V280",
+      "V281",
+      "V282",
+      "V283",
+      "V284",
+      "V285",
+      "V286",
+      "V287",
+      "V288",
+      "V289",
+      "V290",
+      "V291",
+      "V292",
+      "V293",
+      "V294",
+      "V295",
+      "V296",
+      "V297",
+      "V298",
+      "V299",
+      "V300",
+      "V301",
+      "V302",
+      "V303",
+      "V304",
+      "V305",
+      "V306",
+      "V307",
+      "V308",
+      "V309",
+      "V310",
+      "V311",
+      "V312",
+      "V313",
+      "V314",
+      "V315",
+      "V316",
+      "V317",
+      "V318",
+      "V319",
+      "V320",
+      "V321",
+      "V322",
+      "V323",
+      "V324",
+      "V325",
+      "V326",
+      "V327",
+      "V328",
+      "V329",
+      "V330",
+      "V331",
+      "V332",
+      "V333",
+      "V334",
+      "V335",
+      "V336",
+      "V337",
+      "V338",
+      "V339"
+    ],
+    "log_V_cols": [
+      "log_V150"
+    ],
+    "dist_cols": [
+      "log_dist1",
+      "has_dist2"
+    ],
+    "id_cols": [
+      "id_01",
+      "id_02",
+      "id_03",
+      "id_04",
+      "id_05",
+      "id_06",
+      "id_09",
+      "id_10",
+      "id_11",
+      "id_12",
+      "id_13",
+      "id_14",
+      "id_15",
+      "id_16",
+      "id_17",
+      "id_19",
+      "id_20",
+      "id_28",
+      "id_29",
+      "id_30",
+      "id_31",
+      "id_32",
+      "id_33",
+      "id_34",
+      "id_35",
+      "id_36",
+      "id_37",
+      "id_38"
+    ],
+    "other": [
+      "TransactionID",
+      "isFraud",
+      "TransactionDT",
+      "TransactionAmt",
+      "ProductCD",
+      "card1",
+      "card2",
+      "card3",
+      "card4",
+      "card5",
+      "card6",
+      "addr1",
+      "addr2",
+      "P_emaildomain",
+      "R_emaildomain",
+      "has_dist2"
+    ]
+  }
+}
