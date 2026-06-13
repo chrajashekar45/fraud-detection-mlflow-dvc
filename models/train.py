@@ -1,5 +1,5 @@
 """
-RaptorX — Model Training Pipeline (Fixed)
+Model Training Pipeline (Fixed)
 IEEE-CIS Fraud Detection Dataset
 
 Fixes from v1:
@@ -9,7 +9,8 @@ Fixes from v1:
   - Prediction threshold tuned to maximise F1 (not hardcoded 0.5)
   - n_estimators increased to 2000 with early stopping as safety net
 """
-
+import os
+import mlflow
 import pandas as pd
 import numpy as np
 import pickle
@@ -329,14 +330,42 @@ def save_outputs(model, pruned_cols, report):
 def run_pipeline():
     t0 = time.time()
 
-    df, model_cols                = load_data()
-    train_df, test_df             = time_split(df)
-    train_df, test_df, model_cols = fix_leaky_features(
-                                        train_df, test_df, model_cols)
-    model, pruned, fi, zero       = train_model(
-                                        train_df, test_df, model_cols)
-    report                        = evaluate(model, test_df, pruned)
-    save_outputs(model, pruned, report)
+    mlflow_tracking_uri = os.getenv("MLFLOW_TRACKING_URI")
+    if mlflow_tracking_uri:
+        mlflow.set_tracking_uri(mlflow_tracking_uri)
+
+    mlflow.set_experiment("fraud-detection")
+
+    with mlflow.start_run(run_name="lightgbm-fraud-model"):
+        df, model_cols                = load_data()
+        train_df, test_df             = time_split(df)
+        train_df, test_df, model_cols = fix_leaky_features(
+                                            train_df, test_df, model_cols)
+        model, pruned, fi, zero       = train_model(
+                                            train_df, test_df, model_cols)
+        report                        = evaluate(model, test_df, pruned)
+        save_outputs(model, pruned, report)
+
+        mlflow.log_param("model_type", "LightGBM")
+        mlflow.log_param("num_features", report["model_params"]["num_features_used"])
+        mlflow.log_param("best_iteration", report["model_params"]["best_iteration"])
+        mlflow.log_param("threshold", report["best_threshold"])
+        mlflow.log_param("eval_metric", report["model_params"]["eval_metric"])
+        mlflow.log_param("split_strategy", report["split_strategy"]["method"])
+        mlflow.log_param("imbalance_strategy", report["imbalance_strategy"]["method"])
+
+        mlflow.log_metric("auc_roc", report["auc_roc"])
+        mlflow.log_metric("auc_pr", report["auc_pr"])
+        mlflow.log_metric("f1", report["f1"])
+
+        cm = report["confusion_matrix"]
+        mlflow.log_metric("true_negatives", cm["TN"])
+        mlflow.log_metric("false_positives", cm["FP"])
+        mlflow.log_metric("false_negatives", cm["FN"])
+        mlflow.log_metric("true_positives", cm["TP"])
+
+        mlflow.log_artifact(str(OUT_DIR / "eval_report.json"))
+        mlflow.log_artifact(str(OUT_DIR / "pruned_feature_cols.json"))
 
     print(f"\n{'='*55}")
     print(f"  TRAINING COMPLETE  ({round(time.time()-t0)}s)")
