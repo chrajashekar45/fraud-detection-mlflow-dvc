@@ -1,5 +1,5 @@
 """
-RaptorX — Fraud Detection REST API
+Fraud Detection REST API
 FastAPI application with three endpoints:
   POST /predict     → accepts transaction JSON, returns risk score
   GET  /health      → health check
@@ -23,7 +23,7 @@ LAT_PATH   = BASE_DIR / "models" / "latency_report.json"
 
 # ── App ───────────────────────────────────────────────────────────────────────
 app = FastAPI(
-    title       = "RaptorX Fraud Detection API",
+    title       = "Fraud Detection API",
     description = "Real-time fraud risk scoring for payment transactions.",
     version     = "1.0.0"
 )

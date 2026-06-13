@@ -4,12 +4,12 @@ import streamlit as st
 API_URL = "http://localhost:8000"
 
 st.set_page_config(
-    page_title="RaptorX Fraud Detection",
-    page_icon="🛡️",
+    page_title="Fraud Detection",
+    page_icon="fd",
     layout="wide",
 )
 
-st.title("RaptorX Fraud Detection")
+st.title("Fraud Detection")
 st.caption("Real-time payment fraud risk scoring using a LightGBM model.")
 
 with st.sidebar:
