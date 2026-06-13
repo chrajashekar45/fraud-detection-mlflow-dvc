@@ -17,6 +17,6 @@ streamlit==1.52.1
 requests==2.32.5
 dvc[s3]==3.64.2
 pathspec==0.12.1
-
+dvc-s3
 mlflow
 dagshub
