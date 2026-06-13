@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Only copy what the API actually needs
 COPY api/        ./api/
+COPY app/        ./app/
 COPY models/model.pkl          ./models/model.pkl
 COPY models/eval_report.json   ./models/eval_report.json
 COPY models/latency_report.json ./models/latency_report.json
