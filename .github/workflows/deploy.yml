@@ -46,6 +46,7 @@ jobs:
             dvc pull models/model.pkl
             dvc pull models/pruned_feature_cols.json
 
-            docker compose -f docker/docker-compose.yml up -d --build
+            docker-compose -f docker/docker-compose.yml up -d --build
+
 
             docker ps
