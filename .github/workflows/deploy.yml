@@ -46,6 +46,13 @@ jobs:
             dvc pull models/model.pkl
             dvc pull models/pruned_feature_cols.json
 
-            docker compose -f docker/docker-compose.yml up -d --build
+            if docker compose version >/dev/null 2>&1; then
+              docker compose -f docker/docker-compose.yml up -d --build
+            elif command -v docker-compose >/dev/null 2>&1; then
+              docker-compose -f docker/docker-compose.yml up -d --build
+            else
+              echo "Neither docker compose plugin nor docker-compose binary is available"
+              exit 1
+            fi
 
             docker ps
