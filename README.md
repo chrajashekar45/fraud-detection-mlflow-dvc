@@ -13,6 +13,7 @@ The model is trained on the IEEE-CIS Fraud Detection dataset, which contains 590
 - AWS S3 remote storage for DVC-tracked data and model artifacts
 - DagsHub MLflow tracking for online experiment logging
 - Docker files for containerized deployment
+- GitHub Actions CI/CD deployment to EC2
 - Pytest test suite covering API behavior and prediction edge cases
 
 ## Architecture
@@ -63,7 +64,7 @@ app/streamlit_app.py
 | Pipeline/versioning | DVC |
 | Remote artifact storage | AWS S3 |
 | Experiment tracking | MLflow on DagsHub |
-| Deployment base | Docker, Docker Compose |
+| Deployment | Docker, Docker Compose, EC2, GitHub Actions |
 
 ## Repository Structure
 
@@ -89,10 +90,15 @@ fraud-detection-mlflow-dvc/
 |-- docker/
 |   |-- Dockerfile
 |   |-- docker-compose.yml
+|-- .github/
+|   |-- workflows/
+|       |-- ci.yml
+|       |-- deploy.yml
 |-- tests/
 |   |-- test_api.py
 |-- dvc.yaml                      # DVC pipeline definition
 |-- dvc.lock                      # DVC pipeline lock file
+|-- EC2_DEPLOYMENT_GUIDE.md       # Full EC2 rebuild/deployment guide
 |-- requirements.txt
 |-- README.md
 ```
@@ -382,13 +388,64 @@ Tests cover:
 
 ## Docker
 
-Build and run with Docker Compose:
+Build and run the FastAPI backend and Streamlit frontend with Docker Compose:
 
 ```powershell
-docker-compose -f docker/docker-compose.yml up --build
+docker-compose -f docker/docker-compose.yml up -d --build
 ```
 
-The Docker setup currently focuses on serving the FastAPI app. Streamlit can be added as a second service in a later deployment iteration.
+The Compose stack exposes:
+
+```text
+FastAPI   -> http://localhost:8000
+Streamlit -> http://localhost:8501
+```
+
+Inside Docker, Streamlit calls FastAPI through the service name:
+
+```text
+FASTAPI_URL=http://fraud-api:8000
+```
+
+This avoids the common Docker networking mistake where `localhost` inside the UI container points to the UI container itself instead of the backend container.
+
+## CI/CD
+
+GitHub Actions workflows:
+
+```text
+.github/workflows/ci.yml
+.github/workflows/deploy.yml
+```
+
+CI runs on push and pull requests:
+
+- checks out the repo
+- installs Python dependencies
+- configures AWS credentials
+- verifies AWS identity
+- pulls DVC model artifacts from S3
+- runs the API test suite
+
+Deployment runs after CI succeeds on `main`:
+
+- SSHs into the EC2 instance
+- pulls the latest GitHub code
+- installs lightweight DVC dependencies on the host
+- pulls model artifacts from S3
+- rebuilds and restarts the Docker Compose stack
+
+Required GitHub repository secrets:
+
+```text
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+EC2_HOST
+EC2_USERNAME
+EC2_SSH_KEY
+```
+
+For a full rebuild guide, see [EC2_DEPLOYMENT_GUIDE.md](EC2_DEPLOYMENT_GUIDE.md).
 
 ## Git And Artifact Rules
 
@@ -437,3 +494,13 @@ LightGBM is strong for large tabular datasets, trains quickly, handles nonlinear
 
 Built an end-to-end MLOps fraud detection system using LightGBM, FastAPI, Streamlit, DVC, AWS S3, DagsHub MLflow, Docker, and GitHub. Implemented reproducible data pipelines, remote experiment tracking, cloud-backed artifact versioning, API testing, and real-time fraud inference with p99 latency under 3 ms.
 
+## Interview Talking Points
+
+- Git stores source code and DVC metadata, while S3 stores large data/model artifacts.
+- DVC makes the ML pipeline reproducible with explicit stages and dependencies.
+- MLflow is hosted on DagsHub to avoid local `mlruns/` disk growth.
+- The Streamlit app is a demo interface; in production, another backend system or feature store would provide the feature vector.
+- EC2 serves Dockerized FastAPI and Streamlit containers.
+- GitHub Actions handles CI tests and CD deployment after a successful push to `main`.
+- The model uses a time-based split to reduce future-data leakage.
+- The API uses a curated request schema for demo inference while the model internally consumes 270 features.
