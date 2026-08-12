@@ -1,6 +1,6 @@
 
 """
-RaptorX — Feature Engineering Pipeline
+Feature Engineering Pipeline
 IEEE-CIS Fraud Detection Dataset
  
 Builds 20+ features across 5 categories:
