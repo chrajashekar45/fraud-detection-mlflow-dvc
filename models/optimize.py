@@ -1,5 +1,5 @@
 """
-RaptorX — Inference Latency Optimization
+Inference Latency Optimization
 IEEE-CIS Fraud Detection Dataset
 
 Two optimizations applied:
